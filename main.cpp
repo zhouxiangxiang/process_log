@@ -3,26 +3,44 @@
 #include <QWidget>
 #include <QSpinBox>
 #include <QSlider>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QSignalMapper>
+
+#include <iostream>
+
+#include "./test.h"
+
+
+void function() {
+    // std::cout << ledit->text().toStdString() << std::endl;
+    std::cout << "test" << std::endl;
+}
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
     QWidget *pwin = new QWidget;
     pwin->setWindowTitle("ENTER YOU AGE");
-
-    QSpinBox *pSpinbox = new QSpinBox;
-    QSlider  *pSlider = new QSlider(Qt::Horizontal);
-    pSpinbox->setRange(0, 130);
-    pSlider->setRange(0, 130);
-    pSpinbox->setValue(35);
-
-    QObject::connect(pSpinbox, SIGNAL(valueChanged(int)), pSlider, SLOT(setValue(int)));
-    QObject::connect(pSlider, SIGNAL(valueChanged(int)), pSpinbox, SLOT(setValue(int)));
-
-    QHBoxLayout *playout = new QHBoxLayout;
-    playout->addWidget(pSpinbox);
-    playout->addWidget(pSlider);
-    pwin->setLayout(playout);
-
     pwin->show();
+
+    QLineEdit *ledit = new QLineEdit;
+    ledit->setParent(pwin);
+    ledit->show();
+
+    QPushButton *pbtn = new QPushButton("push");
+    pbtn->setParent(pwin);
+    pbtn->setGeometry(50, 50, 100, 100);
+    pbtn->show();
+
+    TEST *pt = new TEST;
+    // QObject::connect(pbtn, SIGNAL(clicked(bool)), pt, SLOT(someSlots()));
+
+    QSignalMapper *psm = new QSignalMapper(pt);
+    QObject::connect(pbtn, SIGNAL(clicked(bool)), psm, SLOT(map()));
+    //psm->setMapping(pbtn, "success");
+    //QObject::connect(psm, SIGNAL(mapped(QString)), pt, SLOT(someSlots(QString)));
+    psm->setMapping(pbtn, (QObject *)ledit);
+    QObject::connect(psm, SIGNAL(mapped(QObject*)), pt, SLOT(someSlots(QObject*)));
+
     return app.exec();
 }
