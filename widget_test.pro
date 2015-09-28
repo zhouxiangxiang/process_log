@@ -14,11 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    logprocess.cpp
+    logprocess.cpp \
+    countnumber.cpp
 
 HEADERS  += mainwindow.h \
     test.h \
     processinginfo.h \
-    logprocess.h
+    logprocess.h \
+    countnumber.h
 
 FORMS    += mainwindow.ui

@@ -13,6 +13,13 @@ public:
 
     bool startProcess();
 
+    std::string getIFilename() const {
+        return m_ifilename;
+    }
+    std::string getOFilename() const {
+        return m_ofilename;
+    }
+
     ~LogProcess();
 
 private:

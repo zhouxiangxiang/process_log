@@ -6,6 +6,7 @@
 #include <QLabel>
 
 #include "./logprocess.h"
+#include "./countnumber.h"
 
 class ProcessingInfo {
 public:
@@ -55,6 +56,9 @@ public:
     bool startProcess() {
         LogProcess lp(m_inputFilename, m_outputFileName, m_roomInfo);
         lp.startProcess();
+
+        CountNumber cn(lp.getOFilename());
+        cn.startProcess();
         return true;
     }
 
