@@ -21,12 +21,14 @@ void function() {
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
+    /*
     DirectoryOPeration dirOperation("D:\\Qt\\project\\widget_test\\log");
     dirOperation.iteratorDirectory();
-    /*
+    */
+
     MainWindow *main = new MainWindow;
     main->show();
-    */
+
   //   QWidget *pwin = new QWidget;
   //   pwin->setWindowTitle("ENTER YOU AGE");
   //   pwin->show();

@@ -4,9 +4,11 @@
 #include <string>
 #include <iostream>
 #include <QLabel>
+#include <QFileInfo>
 
 #include "./logprocess.h"
 #include "./countnumber.h"
+#include "./directoryoperation.h"
 
 class ProcessingInfo {
 public:
@@ -54,11 +56,44 @@ public:
     }
 
     bool startProcess() {
+        QFileInfo fileInfo(m_inputFilename.c_str());
+        if (fileInfo.isDir()) {
+            DirectoryOPeration curDir(m_inputFilename.c_str());
+            curDir.iteratorDirectory();
+
+            QDir dirOp(m_inputFilename.c_str());
+
+            //DirectoryOPeration dirOperation(m_inputFilename.c_str());
+            std::string ofilename;
+             QFileInfoList list = dirOp.entryInfoList();
+             for (int i = 0; i < list.size(); ++i) {
+                QFileInfo fi = list.at(i);
+                //fi.makeAbsolute();
+                //fi.filePath();
+                if (!fi.isDir()) {
+                    std::cout << qPrintable(QString("%1").arg(fileInfo.fileName())) << std::endl;
+                    LogProcess lp(fi.absoluteFilePath().toStdString(), m_outputFileName, m_roomInfo);
+                    lp.startProcess();
+
+                    ofilename = lp.getOFilename();
+                }
+                else { // directory.
+                    continue;
+                }
+             }
+
+             CountNumber cn(ofilename);
+             cn.startProcess();
+        }
+
+
+        /*
         LogProcess lp(m_inputFilename, m_outputFileName, m_roomInfo);
         lp.startProcess();
 
         CountNumber cn(lp.getOFilename());
         cn.startProcess();
+        */
         return true;
     }
 

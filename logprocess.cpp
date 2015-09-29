@@ -21,7 +21,7 @@ LogProcess::LogProcess(std::string ifilename, std::string ofilename,  std::strin
     }
 
     if (!m_ofstream.is_open()) {
-        m_ofstream.open(m_ofilename);
+        m_ofstream.open(m_ofilename, std::ofstream::app | std::ofstream::out);
         if (!m_ofstream.is_open())
             assert(0 && "open output file failed.");
     }
@@ -33,7 +33,7 @@ LogProcess::LogProcess(std::string ifilename, std::string ofilename,  std::strin
         std::getline(m_ifstream, curline);
         if (std::regex_search(curline, m_rePattern)) {
             if (std::regex_search(curline, smr, expr)) {
-                m_ofstream << smr[0] << std::endl;
+                m_ofstream << smr[0] << " " << std::endl;
             }
         }
     }
