@@ -84,6 +84,29 @@ MainWindow::~MainWindow()
 void MainWindow::hanldeInput(QObject* ptr) {
     // QLineEdit * pedit = (QLineEdit*)ptr;
     // lab->setText(pedit->text());
+
+    if (mp_ldtInputfile->text().isEmpty()) {
+        std::string curPath(QDir::currentPath().toStdString() + "/log");
+        mp_ldtInputfile->setText(curPath.c_str());
+    }
+    if (mp_ldtOutputfile->text().isEmpty()) {
+        QFileInfo fi(mp_ldtInputfile->text());
+        if (fi.isDir()) {
+            mp_ldtOutputfile->setText((mp_ldtInputfile->text().toStdString() + "/../" + "tmp_result.txt").c_str());
+        }
+        else {
+            fi.makeAbsolute();
+            mp_ldtOutputfile->setText((fi.path().toStdString() + "/../" + "tmp_result.txt").c_str());
+        }
+    }
+    if (mp_ldtRoomid->text().isEmpty()) {
+        mp_ldtRoomid->setText("roomid:46087");
+    }
+    if (mp_ldtInterval->text().isEmpty()) {
+        mp_ldtInterval->setText("1");
+    }
+
+
     ProcessingInfo *prInfo = new ProcessingInfo(mp_ldtInputfile->text().toStdString(),
                                                 mp_ldtOutputfile->text().toStdString(),
                                                 mp_ldtRoomid->text().toStdString(),

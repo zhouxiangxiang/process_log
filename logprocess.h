@@ -29,7 +29,8 @@ private:
     std::ifstream m_ifstream;
     std::ofstream m_ofstream;
 
-    std::regex    m_rePattern;
+    // std::regex    m_rePattern;
+    std::string   m_rePattern;
 };
 
 #endif // LOGPROCESS

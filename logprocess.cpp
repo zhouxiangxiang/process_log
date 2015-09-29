@@ -10,7 +10,8 @@ LogProcess::LogProcess(std::string ifilename, std::string ofilename,  std::strin
 
     m_ifilename = ifilename;
     m_ofilename = ofilename;
-    m_rePattern = std::regex(rePattern);
+   // m_rePattern = std::regex("[a-zA-Z:]+" + rePattern);
+    m_rePattern = rePattern;
 }
 
  bool LogProcess::startProcess() {
@@ -31,9 +32,11 @@ LogProcess::LogProcess(std::string ifilename, std::string ofilename,  std::strin
     std::smatch smr;
     while (!m_ifstream.eof()) {
         std::getline(m_ifstream, curline);
-        if (std::regex_search(curline, m_rePattern)) {
+        //if (std::regex_search(curline, m_rePattern)) {
+        if (std::string::npos != curline.find(m_rePattern)) {
+            // std::cout <<">>>>>" <<   curline << std::endl;
             if (std::regex_search(curline, smr, expr)) {
-                m_ofstream << smr[0] << " " << std::endl;
+                m_ofstream << smr[0]  << std::endl;
             }
         }
     }

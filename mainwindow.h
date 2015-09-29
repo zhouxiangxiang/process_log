@@ -46,6 +46,7 @@ private:
 
     QPushButton     *mp_btnProcess;
     QSignalMapper   *mp_sgnMapper;
+
 };
 
 #endif // MAINWINDOW_H

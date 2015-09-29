@@ -17,14 +17,19 @@ public:
 
         // fixme: lab's displaying tijme.
         if (ifilename.empty()) {
+            /*
             m_inputFilename = "D:\\Qt\\project\\widget_test\\log\\zt.txt";
             QLabel lab("INPUT FILENAME cannot be empty");
             lab.show();
+            */
+            assert(0 && "INPUT FILENAME is empty");
         }
         else {
             m_inputFilename = ifilename;
         }
+
         if (ofilename.empty()) {
+            /*
             m_outputFileName = m_inputFilename + "_result" + ".txt";
             std::string str =  std::string("OUTPUT FILENAME is empty \n") +
                                std::string("the DEFAULT filename is : ") +
@@ -32,15 +37,20 @@ public:
             QLabel lab(str.c_str());
             //lab.setText(QString(str));
             lab.show();
+            */
+            assert(0 && "OUTPUT FILENAME is empty");
         }
         else {
             m_outputFileName = ofilename;
         }
 
         if (roomInfo.empty()) {
-            m_roomInfo = "46807";
+            /*
+            m_roomInfo = "roomid:46807";
             QLabel lab("ROOMID cannot be empty");
             lab.show();
+            */
+            assert(0 && "ROOMID is empty");
         }
         else {
             m_roomInfo = roomInfo;
@@ -49,9 +59,13 @@ public:
         if (interval > 0)
             m_interval = interval;
         else {
+            /*
             interval = 1;
+
             QLabel lab("time INTERVAL must be greater than 0");
             lab.show();
+            */
+            assert(0 && "interval is empty");
         }
     }
 
@@ -71,7 +85,7 @@ public:
                 //fi.makeAbsolute();
                 //fi.filePath();
                 if (!fi.isDir()) {
-                    std::cout << qPrintable(QString("%1").arg(fileInfo.fileName())) << std::endl;
+                    std::cout << "[ " << i << " ]" << qPrintable(QString("%1").arg(fi.fileName())) << std::endl;
                     LogProcess lp(fi.absoluteFilePath().toStdString(), m_outputFileName, m_roomInfo);
                     lp.startProcess();
 
@@ -84,6 +98,13 @@ public:
 
              CountNumber cn(ofilename);
              cn.startProcess();
+        }
+        else {
+            LogProcess lp(m_inputFilename, m_outputFileName, m_roomInfo);
+            lp.startProcess();
+
+            CountNumber cn(lp.getOFilename());
+            cn.startProcess();
         }
 
 

@@ -46,14 +46,14 @@ bool CountNumber::startProcess(){
                 else {
                     curline.erase(std::remove(curline.begin(), curline.end(), '\n'), curline.end());
                     if (!curline.empty())
-                        m_ofstream << curline.substr(0, curline.find_last_of(':')) + " : " + std::to_string(count) << std::endl;
+                        m_ofstream << curline.substr(0, curline.find_last_of(':')) + " \t : " + std::to_string(count) << std::endl;
                     curline = nextline;
                     count = 1;
                 }
         }
         curline.erase(std::remove(curline.begin(), curline.end(), '\n'), curline.end());
         if (!curline.empty())
-            m_ofstream << curline.substr(0, curline.find_last_of(':')) + ":" + std::to_string(count) << std::endl;
+            m_ofstream << curline.substr(0, curline.find_last_of(':')) + " \t : " + std::to_string(count) << std::endl;
     }
     return true;
 }
