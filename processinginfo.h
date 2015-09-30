@@ -3,8 +3,12 @@
 
 #include <string>
 #include <iostream>
+#include <chrono>
+#include <thread>
+
 #include <QLabel>
 #include <QFileInfo>
+#include <QPlainTextEdit>
 
 #include "./logprocess.h"
 #include "./countnumber.h"
@@ -69,7 +73,7 @@ public:
         }
     }
 
-    bool startProcess() {
+    bool startProcess(QPlainTextEdit  *mp_pttConsole) {
         QFileInfo fileInfo(m_inputFilename.c_str());
         if (fileInfo.isDir()) {
             DirectoryOPeration curDir(m_inputFilename.c_str());
@@ -85,10 +89,12 @@ public:
                 //fi.makeAbsolute();
                 //fi.filePath();
                 if (!fi.isDir()) {
-                    std::cout << "[ " << i << " ]" << qPrintable(QString("%1").arg(fi.fileName())) << std::endl;
+                    std::string str =  "[ " +  std::to_string(i) + " ]" + qPrintable(QString("%1").arg(fi.fileName()));
+                    mp_pttConsole->appendPlainText(str.c_str());
                     LogProcess lp(fi.absoluteFilePath().toStdString(), m_outputFileName, m_roomInfo);
                     lp.startProcess();
-
+                    std::chrono::duration<int, deci> ztm(1);
+                    std::this_thread::sleep_for(ztm);
                     ofilename = lp.getOFilename();
                 }
                 else { // directory.

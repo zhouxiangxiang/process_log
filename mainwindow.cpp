@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     mp_mainWidget = new QWidget;
-    mp_layout = new QVBoxLayout;
+    mp_layout = new QHBoxLayout;
 
     mp_btnProcess = new QPushButton("process");
 
@@ -21,33 +21,50 @@ MainWindow::MainWindow(QWidget *parent) :
     mp_labInterval = new QLabel("INTERVAL");
     mp_ldtRoomid  = new QLineEdit;
     mp_ldtInterval = new QLineEdit;
+    mp_pttConsole = new QPlainTextEdit;
+    mp_pttConsole->setReadOnly(true);
+
+    QVBoxLayout *lvbl = new QVBoxLayout; // left side Vertical Box Layout.
 
     QHBoxLayout* hlayout = new QHBoxLayout;
     hlayout->addWidget(mp_labInputfile);
     hlayout->addWidget(mp_ldtInputfile);
-    mp_layout->addLayout(hlayout);
+    // mp_layout->addLayout(hlayout);
+    lvbl->addLayout(hlayout);
 
     QHBoxLayout* hlayout_output = new QHBoxLayout;
     hlayout_output->addWidget(mp_labOutputfile);
     hlayout_output->addWidget(mp_ldtOutputfile);
-    mp_layout->addLayout(hlayout_output);
+    // mp_layout->addLayout(hlayout_output);
+    lvbl->addLayout(hlayout_output);
 
     QHBoxLayout* hlayout_room = new QHBoxLayout;
     hlayout_room->addWidget(mp_labRoomid);
     hlayout_room->addWidget(mp_ldtRoomid);
-    mp_layout->addLayout(hlayout_room);
+    // mp_layout->addLayout(hlayout_room);
+    lvbl->addLayout(hlayout_room);
 
     QHBoxLayout* hlayout_interval = new QHBoxLayout;
     hlayout_interval->addWidget(mp_labInterval);
     hlayout_interval->addWidget(mp_ldtInterval);
-    mp_layout->addLayout(hlayout_interval);
+    // mp_layout->addLayout(hlayout_interval);
+    lvbl->addLayout(hlayout_interval);
 
     QHBoxLayout* hlayout_process = new QHBoxLayout;
     hlayout_process->addWidget(mp_btnProcess);
-    mp_layout->addLayout(hlayout_process);
+    // mp_layout->addLayout(hlayout_process);
+    lvbl->addLayout(hlayout_process);
 
+    QVBoxLayout* rvbl = new QVBoxLayout; // right side box layout
+    rvbl->addWidget(mp_pttConsole);
+
+    mp_layout->addLayout(lvbl);
+    mp_layout->addLayout(rvbl);
     mp_mainWidget->setLayout(mp_layout);
     setCentralWidget(mp_mainWidget);
+
+    this->setMinimumHeight(400);
+    this->setMinimumWidth(700);
 
 
     // signal handling.
@@ -112,6 +129,6 @@ void MainWindow::hanldeInput(QObject* ptr) {
                                                 mp_ldtRoomid->text().toStdString(),
                                                 atoi(mp_ldtInterval->text().toStdString().c_str()));
 
-    prInfo->startProcess();
+    prInfo->startProcess(mp_pttConsole);
     return;
 }

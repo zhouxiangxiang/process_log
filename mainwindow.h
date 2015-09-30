@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QPlainTextEdit>
 
 #include <QHBoxLayout>
 #include <QSignalMapper>
@@ -32,7 +33,7 @@ public slots:
 private:
     Ui::MainWindow  *ui;
     QWidget         *mp_mainWidget;
-    QVBoxLayout     *mp_layout;
+    QHBoxLayout     *mp_layout;
 
     QLabel          *mp_labInputfile;
     QLabel          *mp_labOutputfile;
@@ -46,6 +47,7 @@ private:
 
     QPushButton     *mp_btnProcess;
     QSignalMapper   *mp_sgnMapper;
+    QPlainTextEdit  *mp_pttConsole;
 
 };
 
