@@ -117,7 +117,7 @@ void MainWindow::hanldeInput(QObject* ptr) {
         }
     }
     if (mp_ldtRoomid->text().isEmpty()) {
-        mp_ldtRoomid->setText("roomid:46087");
+        mp_ldtRoomid->setText("roomid:46807");
     }
     if (mp_ldtInterval->text().isEmpty()) {
         mp_ldtInterval->setText("1");

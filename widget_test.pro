@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = widget_test
 TEMPLATE = app
+CONFIG += -static
 
 
 SOURCES += main.cpp\
