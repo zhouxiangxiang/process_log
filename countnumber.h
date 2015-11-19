@@ -13,6 +13,10 @@ public:
     bool startProcess();
     unsigned countNumberByInterval(std::string begin, std::string end, int interval = 1);
 
+    const std::string getOfilename() const {
+        return m_ofilename;
+    }
+
 private:
     std::string     m_ifilename;
     std::string     m_ofilename;

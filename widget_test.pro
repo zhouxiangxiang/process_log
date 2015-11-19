@@ -17,7 +17,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     logprocess.cpp \
     countnumber.cpp \
-    directoryoperation.cpp
+    directoryoperation.cpp \
+    sort_result.cpp
 
 HEADERS  += mainwindow.h \
     test.h \
@@ -25,5 +26,6 @@ HEADERS  += mainwindow.h \
     logprocess.h \
     countnumber.h \
     directoryoperation.h \
+    sort_result.h
 
 FORMS    += mainwindow.ui

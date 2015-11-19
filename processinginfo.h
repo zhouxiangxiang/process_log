@@ -13,6 +13,7 @@
 #include "./logprocess.h"
 #include "./countnumber.h"
 #include "./directoryoperation.h"
+#include "./sort_result.h"
 
 class ProcessingInfo {
 public:
@@ -104,6 +105,9 @@ public:
 
              CountNumber cn(ofilename);
              cn.startProcess();
+
+             Sort_Result sr(cn.getOfilename());
+             sr.startSort();
         }
         else {
             LogProcess lp(m_inputFilename, m_outputFileName, m_roomInfo);
