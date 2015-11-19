@@ -21,10 +21,12 @@ const std::string Sort_Result::getHour(std::string& tm) const {
     return tm.substr(0, tm.find_first_of(":"));
 }
 const std::string Sort_Result::getMin( std::string& tm) const{
-    return tm.substr(tm.find_first_of(":") + 1, tm.find_last_of(":") - 1);
+    auto it = tm.find_first_of(":");
+    auto endit = tm.rfind(":");
+    return tm.substr(it + 1, endit - it - 1);
 }
 const std::string Sort_Result::getSec( std::string& tm) const{
-    return tm.substr(tm.find_last_of(":") + 1);
+    return tm.substr(tm.rfind(":") + 1, 2);
 }
 
 
@@ -50,6 +52,10 @@ void Sort_Result::startSort() {
         auto ehour = getHour(*it); // external
         auto emin = getMin(*it);
         auto esec = getSec(*it);
+        std::cout << "-----:" << *it << std::endl;
+        std::cout << "***" << ehour << std::endl;
+        std::cout << "\t:" << emin << std::endl;
+        std::cout << "\t\t:" << esec << std::endl;
 
         for (auto inIt = it + 1; inIt != itend; ++inIt) {
             auto ihour = getHour(*inIt);
