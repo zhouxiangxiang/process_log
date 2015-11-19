@@ -17,16 +17,16 @@ Sort_Result::~Sort_Result(){
 }
 
 
-const std::string Sort_Result::getHour(std::string& tm) const {
-    return tm.substr(0, tm.find_first_of(":"));
+const int Sort_Result::getHour(std::string& tm) const {
+    return std::atoi(tm.substr(0, tm.find_first_of(":")).c_str());
 }
-const std::string Sort_Result::getMin( std::string& tm) const{
+const int Sort_Result::getMin( std::string& tm) const{
     auto it = tm.find_first_of(":");
     auto endit = tm.rfind(":");
-    return tm.substr(it + 1, endit - it - 1);
+    return std::atoi(tm.substr(it + 1, endit - it - 1).c_str());
 }
-const std::string Sort_Result::getSec( std::string& tm) const{
-    return tm.substr(tm.rfind(":") + 1, 2);
+const int Sort_Result::getSec( std::string& tm) const{
+    return std::atoi(tm.substr(tm.rfind(":") + 1, 2).c_str());
 }
 
 
@@ -45,6 +45,7 @@ void Sort_Result::startSort() {
     while (!m_ifs.eof()) {
         std::getline(m_ifs, iCurLine);
         content.push_back(iCurLine);
+        iCurLine.clear();
     }
 
     auto itend = content.end();
@@ -53,45 +54,37 @@ void Sort_Result::startSort() {
         auto emin = getMin(*it);
         auto esec = getSec(*it);
         std::cout << "-----:" << *it << std::endl;
-        std::cout << "***" << ehour << std::endl;
-        std::cout << "\t:" << emin << std::endl;
-        std::cout << "\t\t:" << esec << std::endl;
+        std::cout << "***" << ehour  << " - " << emin  << " - " << esec << std::endl;
 
         for (auto inIt = it + 1; inIt != itend; ++inIt) {
             auto ihour = getHour(*inIt);
             auto imin = getMin(*inIt);
             auto isec = getSec(*inIt);
 
-            if (ehour.compare(ehour) == 0) {
-                if (emin.compare(imin) == 0) { // minutes
-                    if (esec.compare(isec) == 0) {
+            if (ehour == ihour) {
+                if (emin == imin) { // minutes
+                    if (esec == isec) {
                         std::cout << "error occured" << std::endl; // fixme: output a warning friendly.
                         break;
                     }
-                    else if (esec.compare(isec) > 0) {
-                        std::string swapStr = *inIt;
-                        *inIt = *it;
-                        *it = swapStr;
+                    else if (esec > isec) {
+                        std::swap(it, inIt);
                         break;
                     }
                     else {
                         continue;
                     }
                 }
-                else if (emin.compare(imin) > 0) { // minutes
-                    std::string swapStr = *inIt;
-                    *inIt = *it;
-                    *it = swapStr;
+                else if (emin > imin) { // minutes
+                    std::swap(it, inIt);
                     break;
                 }
                 else {
                     continue;
                 }
             }
-            else if (ehour.compare(ihour) > 0) {
-                std::string swapStr = *inIt;
-                *inIt = *it;
-                *it = swapStr;
+            else if (ehour > ihour) {
+                std::swap(it, inIt);
                 break;
             }
             else {

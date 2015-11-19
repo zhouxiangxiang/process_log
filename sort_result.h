@@ -12,9 +12,9 @@ public:
 
     void startSort();
 private:
-    inline const std::string getHour(std::string& tm) const;
-    inline const std::string getMin( std::string& tm) const;
-    inline const std::string getSec( std::string& tm) const;
+    inline const int getHour(std::string& tm) const;
+    inline const int getMin( std::string& tm) const;
+    inline const int getSec( std::string& tm) const;
 
 private:
     std::string m_ifn;
