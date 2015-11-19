@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <thread>
+#include <functional>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -124,11 +126,18 @@ void MainWindow::hanldeInput(QObject* ptr) {
     }
 
 
+    //fixeme: memory leak.
     ProcessingInfo *prInfo = new ProcessingInfo(mp_ldtInputfile->text().toStdString(),
                                                 mp_ldtOutputfile->text().toStdString(),
                                                 mp_ldtRoomid->text().toStdString(),
                                                 atoi(mp_ldtInterval->text().toStdString().c_str()));
 
-    prInfo->startProcess(mp_pttConsole);
+    // prInfo->startProcess(mp_pttConsole);
+    startThread(prInfo);
     return;
+}
+
+void MainWindow::startThread(ProcessingInfo* ptrPI) {
+    std::thread th(std::bind(&ProcessingInfo::startProcess, ptrPI, mp_pttConsole));
+    th.detach();
 }

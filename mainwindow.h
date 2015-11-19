@@ -30,6 +30,8 @@ public slots:
 
     void hanldeInput(QObject* ptr);
 
+    void startThread(ProcessingInfo* ptrPI);
+
 private:
     Ui::MainWindow  *ui;
     QWidget         *mp_mainWidget;
