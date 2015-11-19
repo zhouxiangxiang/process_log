@@ -1,4 +1,3 @@
-
 #include <cassert>
 
 #include "./directoryoperation.h"
@@ -13,7 +12,6 @@ bool DirectoryOPeration::iteratorDirectory() {
      QFileInfoList list = m_logDir.entryInfoList();
      for (int i = 0; i < list.size(); ++i) {
          QFileInfo fileInfo = list.at(i);
-         // std::cout << qPrintable(QString("%1 %2").arg(fileInfo.size(), 10).arg(fileInfo.fileName()));
         std::cout << qPrintable(QString("%1").arg(fileInfo.fileName()));
          std::cout << std::endl;
      }

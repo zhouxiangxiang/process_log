@@ -16,6 +16,8 @@ private:
     inline const int getMin( std::string& tm) const;
     inline const int getSec( std::string& tm) const;
 
+    bool compare(std::string& lhs, std::string& rhs);
+
 private:
     std::string m_ifn;
     std::string m_ofn;

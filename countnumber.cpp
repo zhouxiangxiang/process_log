@@ -37,9 +37,6 @@ bool CountNumber::startProcess(){
         unsigned count = 1;
         while(!m_ifstream.eof()) {
             std::getline(m_ifstream, nextline);
-                // curline.find_last_of(':')
-                // nextline.find_last_of(':')
-
                 if (!curline.compare(0, curline.find_last_of(':'), nextline.substr(0, nextline.find_last_of(':')))) {
                     ++count;
                 }
